@@ -1,0 +1,52 @@
+.signup-form-container {
+  width: 600px;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin: 0 auto;
+  margin-top: 200px;
+  font-weight: bold;
+  color: azure;
+}
+
+.submitbtn {
+  background-color: rgb(213, 219, 236);
+  border-radius: 6px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  width: 140px;
+  padding: 8px 20px;
+  color: rgb(13, 13, 124);
+  font-weight: 700;
+}
+
+.submitbtn:hover {
+  background-color: rgb(106, 124, 172);
+  background-color: rgb(29, 29, 29);
+  color: azure;
+  transform: scale(1.05);
+}
+
+.btnrow {
+  justify-content: center;
+  margin-top: 50px;
+  padding: 8px 10px;
+  display: flex;
+}
+
+.form-elements {
+  margin-bottom: 35px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+.cover {
+  background-image: url(../../assets/3386851.jpg) center center cover no-repeat
+    fixed;
+}
