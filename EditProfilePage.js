@@ -1,8 +1,10 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import AuthCtx from "../Store/auth-ctx";
 
 const EditProfile = () => {
+  const [userDetailsComplete, setUserDetailsComplete] = useState(null);
+
   const authCtx = useContext(AuthCtx);
   useEffect(() => {
     const fetchingUserDetails = async () => {
@@ -46,6 +48,7 @@ const EditProfile = () => {
     );
 
     const editedResponseData = await editedResponse.json();
+    setUserDetailsComplete(editedResponseData);
     console.log(editedResponseData);
   };
 
