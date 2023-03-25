@@ -8,11 +8,14 @@ import { useContext } from "react";
 import AuthCtx from "./components/Store/auth-ctx";
 import Profile from "./components/pages/ProfilePage";
 import EditProfile from "./components/pages/EditProfilePage";
+import EmailVerification from "./components/pages/EmailVerification";
+import NavHeader from "./components/pages/Navheader";
 
 function App() {
   const authCtx = useContext(AuthCtx);
   return (
     <>
+      <NavHeader></NavHeader>
       <Switch>
         <Route path="/" exact>
           <SignupForm></SignupForm>
@@ -29,6 +32,9 @@ function App() {
         </Route>
         <Route path="/user/edit-profile">
           <EditProfile></EditProfile>
+        </Route>
+        <Route to="/user/emailverification">
+          <EmailVerification />
         </Route>
       </Switch>
     </>

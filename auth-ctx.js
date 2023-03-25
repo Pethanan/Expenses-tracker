@@ -3,6 +3,7 @@ import React, { useState } from "react";
 export const AuthCtx = React.createContext({
   authToken: null,
   isLoggedIn: false,
+  logout: () => {},
   login: (token) => {},
 });
 
@@ -20,10 +21,17 @@ export const AuthCtxProvider = (props) => {
     localStorage.setItem("idToken", token);
   };
 
+  const logoutHandler = () => {
+    setIsLoggedIn(false);
+    setToken(null);
+    localStorage.removeItem("idToken");
+  };
+
   const authCtxValue = {
     isLoggedIn: isLoggedIn,
     authToken: token,
     login: loginHandler,
+    logout: logoutHandler,
   };
   return (
     <AuthCtx.Provider value={authCtxValue}>{props.children}</AuthCtx.Provider>
