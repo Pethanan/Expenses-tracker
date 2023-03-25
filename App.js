@@ -10,6 +10,7 @@ import Profile from "./components/pages/ProfilePage";
 import EditProfile from "./components/pages/EditProfilePage";
 import EmailVerification from "./components/pages/EmailVerification";
 import NavHeader from "./components/pages/Navheader";
+import ResetPassword from "./components/pages/ResetPassword";
 
 function App() {
   const authCtx = useContext(AuthCtx);
@@ -26,6 +27,9 @@ function App() {
         <Route path="/login-page" exact>
           <LoginAuthform></LoginAuthform>
           {authCtx.isLoggedIn && <Redirect to="/user/profile-page"></Redirect>}
+        </Route>
+        <Route to="/reset-password" exact>
+          <ResetPassword />
         </Route>
         <Route path="/user/profile-page" exact>
           <Profile></Profile>

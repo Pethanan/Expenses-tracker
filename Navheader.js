@@ -22,12 +22,14 @@ const NavHeader = () => {
         <div>Something</div>
         <div style={{ display: "flex", justifyContent: "flex-start" }}>
           {!authCtx.isLoggedIn && (
-            <Redirect
-              style={{ fontWeight: "700", color: "white" }}
-              to="/login-page"
+            <Button
+              style={{ fontWeight: "700" }}
+              onClick={() => {
+                <Redirect to="/login-page"></Redirect>;
+              }}
             >
               Login
-            </Redirect>
+            </Button>
           )}
           {authCtx.isLoggedIn && (
             <Button style={{ fontWeight: "700" }} onClick={authCtx.logout}>

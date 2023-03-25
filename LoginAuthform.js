@@ -55,9 +55,8 @@ const LoginAuthform = () => {
         ></Form.Control>
         <button type="submit">Login</button>
       </Form>
-      <div>
-        <Link to="/">Forgot Password?</Link>
-      </div>
+      <div></div>
+      <Link to="/reset-password">Forgot Password?</Link>
     </div>
   );
 };
