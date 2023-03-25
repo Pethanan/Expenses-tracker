@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 
 export const AuthCtx = React.createContext({
+  authToken: null,
   isLoggedIn: false,
-  login: () => {},
+  login: (token) => {},
 });
 
 export const AuthCtxProvider = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const loginHandler = () => {
+  const initialToken = localStorage.getItem("idToken");
+  const [token, setToken] = useState(initialToken);
+
+  const loggedIn = !!token;
+  const [isLoggedIn, setIsLoggedIn] = useState(loggedIn);
+
+  const loginHandler = (token) => {
     setIsLoggedIn(true);
     console.log("context");
+    setToken(token);
+    localStorage.setItem("idToken", token);
   };
 
-  const authCtxValue = { isLoggedIn: isLoggedIn, login: loginHandler };
+  const authCtxValue = {
+    isLoggedIn: isLoggedIn,
+    authToken: token,
+    login: loginHandler,
+  };
   return (
     <AuthCtx.Provider value={authCtxValue}>{props.children}</AuthCtx.Provider>
   );

@@ -36,7 +36,7 @@ const LoginAuthform = () => {
       setIsLoggedin(true);
       console.log(authData.idToken);
       alert("Login uccesful!");
-      authCtx.login();
+      authCtx.login(authData.idToken);
     }
   };
 
