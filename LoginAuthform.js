@@ -1,10 +1,13 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import AuthCtx from "../Store/auth-ctx";
 
 const LoginAuthform = () => {
+  const authCtx = useContext(AuthCtx);
   const emailRef = useRef(null);
   const pwdRef = useRef(null);
+  const [isLoggedin, setIsLoggedin] = useState(false);
 
   const loginAuthSubmitHandler = async (e) => {
     e.preventDefault();
@@ -28,8 +31,13 @@ const LoginAuthform = () => {
 
     const authData = await authResponse.json();
     const isLoggedin = !!authData.idToken;
-    console.log(authData.idToken);
-    alert("Login uccesful!");
+
+    if (isLoggedin) {
+      setIsLoggedin(true);
+      console.log(authData.idToken);
+      alert("Login uccesful!");
+      authCtx.login();
+    }
   };
 
   return (

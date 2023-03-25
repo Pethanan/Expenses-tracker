@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Form, Row, Col, Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import SignUpModal from "../UI/SignUpModal";
 import classes from "./SignupForm.js.module.css";
 
@@ -133,6 +134,18 @@ const SignupForm = () => {
               </button>
             </div>
           </Form>
+          <Link
+            to="/login-page"
+            style={{
+              color: "black",
+              width: "600px",
+              display: "flex",
+              justifyContent: "center",
+              padding: "10px 15px",
+            }}
+          >
+            Login here, if you already have an account
+          </Link>
         </div>
       </div>
       <div>
