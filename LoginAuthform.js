@@ -55,8 +55,10 @@ const LoginAuthform = () => {
         ></Form.Control>
         <button type="submit">Login</button>
       </Form>
-      <div></div>
       <Link to="/reset-password">Forgot Password?</Link>
+      <div>
+        {authCtx.isLoggedIn && <Redirect to="/user/profilepage"></Redirect>}
+      </div>
     </div>
   );
 };

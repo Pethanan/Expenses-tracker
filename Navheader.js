@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Button, Nav } from "react-bootstrap";
-import { NavLink, Redirect } from "react-router-dom";
+import { Link, NavLink, Redirect } from "react-router-dom";
 import AuthCtx from "../Store/auth-ctx";
 
 const NavHeader = () => {
@@ -22,17 +22,26 @@ const NavHeader = () => {
         <div>Something</div>
         <div style={{ display: "flex", justifyContent: "flex-start" }}>
           {!authCtx.isLoggedIn && (
-            <Button
-              style={{ fontWeight: "700" }}
-              onClick={() => {
-                <Redirect to="/login-page"></Redirect>;
-              }}
-            >
-              Login
+            <Button>
+              <Link
+                to="/login-page"
+                style={{
+                  fontWeight: "700",
+                  textDecoration: "none",
+                  color: "azure",
+                }}
+              >
+                Login
+              </Link>
             </Button>
           )}
           {authCtx.isLoggedIn && (
-            <Button style={{ fontWeight: "700" }} onClick={authCtx.logout}>
+            <Button
+              style={{
+                fontWeight: "700",
+              }}
+              onClick={authCtx.logout}
+            >
               Logout
             </Button>
           )}

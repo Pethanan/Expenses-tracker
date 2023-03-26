@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import AuthCtx from "../Store/auth-ctx";
 
 const Profile = () => {
+  const authCtx = useContext(AuthCtx);
   return (
     <Container
       style={{
@@ -21,6 +23,15 @@ const Profile = () => {
       <Container>
         <span>Your email is not verified, </span>
         <Link to="/user/emailverification">Complete email Verification</Link>
+      </Container>
+      <Container>
+        {authCtx.isLoggedIn && <Link to="/user/expenses">Your Expenses</Link>}
+        {!authCtx.isLoggedIn && (
+          <Container>
+            <span>Please login to continue </span>
+            <Link to="/login-page">Click here to Login</Link>
+          </Container>
+        )}
       </Container>
     </Container>
   );

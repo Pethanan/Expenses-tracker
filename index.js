@@ -3,16 +3,16 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter } from "react-router-dom";
 import { AuthCtxProvider } from "./components/Store/auth-ctx";
+import { ExpensesCtxProvider } from "./components/Store/expenses-ctx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AuthCtxProvider>
-      <BrowserRouter>
+    <ExpensesCtxProvider>
+      <AuthCtxProvider>
         <App />
-      </BrowserRouter>
-    </AuthCtxProvider>
+      </AuthCtxProvider>
+    </ExpensesCtxProvider>
   </React.StrictMode>
 );
