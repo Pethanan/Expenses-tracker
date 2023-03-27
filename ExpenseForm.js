@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 import ExpensesCtx from "../Store/expenses-ctx";
+import axios from "axios";
 
 const ExpenseForm = () => {
   const expensesCtx = useContext(ExpensesCtx);
@@ -10,7 +11,10 @@ const ExpenseForm = () => {
   const itemDescriptionRef = useRef(null);
   const itemDateRef = useRef(null);
 
-  const addExpenseHandler = (e) => {
+  const URL =
+    "https://expensetracker-authentication-default-rtdb.firebaseio.com/";
+
+  const addExpenseHandler = async (e) => {
     e.preventDefault();
     const enteredItemTitle = itemTitleRef.current.value;
     const enteredItemAmount = itemAmountRef.current.value;
@@ -25,7 +29,11 @@ const ExpenseForm = () => {
     };
 
     expensesCtx.addExpense(expenseItem);
-    console.log(expenseItem);
+    const addExpenseResponse = await axios.post(
+      `${URL}/expenses.json`,
+      expenseItem
+    );
+    console.log(addExpenseResponse.data);
   };
   return (
     <Form onSubmit={addExpenseHandler}>

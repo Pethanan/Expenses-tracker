@@ -1,4 +1,5 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useEffect } from "react";
+import axios from "axios";
 
 const ExpensesCtx = React.createContext({
   expenseItems: [],
@@ -6,7 +7,7 @@ const ExpensesCtx = React.createContext({
   addExpense: (expense) => {},
 });
 
-const defaultCartState = { expenseItems: [], totalAmount: 0 };
+const defaultExpensesState = { expenseItems: [], totalAmount: 0 };
 
 const expenseReducer = (state, action) => {
   if (action.type === "ADD_EXPENSE") {
@@ -18,9 +19,24 @@ const expenseReducer = (state, action) => {
 };
 
 export const ExpensesCtxProvider = (props) => {
+  const URL =
+    "https://expensetracker-authentication-default-rtdb.firebaseio.com/";
+
+  // useEffect(() => {
+  //   const fetchExpenses = async () => {
+  //     const fetchExpensesDataResponse = await axios.get(`${URL}/expenses.json`);
+  //     const fetchedExpensesData = fetchExpensesDataResponse.data;
+  //     dispatchExpenseAction({
+  //       type: "FETCHING_EXPENSES",
+  //       items: fetchedExpensesData,
+  //     });
+  //   };
+  //   fetchExpenses();
+  // }, []);
+
   const [expensesState, dispatchExpenseAction] = useReducer(
     expenseReducer,
-    defaultCartState
+    defaultExpensesState
   );
 
   const addExpenseHandler = (expense) => {
