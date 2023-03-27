@@ -28,12 +28,13 @@ const ExpenseForm = () => {
       date: enteredItemDate,
     };
 
-    expensesCtx.addExpense(expenseItem);
     const addExpenseResponse = await axios.post(
       `${URL}/expenses.json`,
       expenseItem
     );
-    console.log(addExpenseResponse.data);
+    const updatedItem = { ...expenseItem, name: addExpenseResponse.data.name };
+    expensesCtx.addExpense(updatedItem);
+    console.log(updatedItem);
   };
   return (
     <Form onSubmit={addExpenseHandler}>

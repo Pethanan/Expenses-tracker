@@ -11,16 +11,18 @@ const AddedExpenses = () => {
   ));
 
   return (
-    <Container>
-      <h3>Added Expenses</h3>
-      <Row>
-        <Col>Item</Col>
-        <Col>Description</Col>
-        <Col>Amount</Col>
-        <Col>Date</Col>
-      </Row>
-      {expenseItemsList}
-    </Container>
+    <>
+      <Container>
+        <h3>Added Expenses</h3>
+        <Row>
+          <Col>Item</Col>
+          <Col>Description</Col>
+          <Col>Amount</Col>
+          <Col>Date</Col>
+        </Row>
+        {expenseItemsList}
+      </Container>
+    </>
   );
 };
 

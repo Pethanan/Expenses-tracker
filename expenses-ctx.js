@@ -5,6 +5,8 @@ const ExpensesCtx = React.createContext({
   expenseItems: [],
   totalAmount: 0,
   addExpense: (expense) => {},
+  editExpense: (expense) => {},
+  removeExpense: (expense) => {},
 });
 
 const defaultExpensesState = { expenseItems: [], totalAmount: 0 };
@@ -12,9 +14,26 @@ const defaultExpensesState = { expenseItems: [], totalAmount: 0 };
 const expenseReducer = (state, action) => {
   if (action.type === "ADD_EXPENSE") {
     const updatedItems = [...state.expenseItems, action.item];
-    const updatedTotalAmount = state.totalAmount + action.item.amount;
 
-    return { expenseItems: updatedItems, totalAmount: updatedTotalAmount };
+    return { expenseItems: updatedItems };
+  }
+
+  if (action.type === "EDIT_EXPENSE") {
+    const toBeUpdatedItemIndex = state.expenseItems.findIndex(
+      (item) => action.item.name === item.name
+    );
+
+    const editedItems = [...state.expenseItems];
+    editedItems[toBeUpdatedItemIndex] = action.item;
+
+    return { expenseItems: editedItems };
+  }
+
+  if (action.type === "REMOVE_EXPENSE") {
+    const updatedExpenseItems = state.expenseItems.filter(
+      (expItem) => expItem.name !== action.item.name
+    );
+    return { expenseItems: updatedExpenseItems };
   }
 };
 
@@ -40,14 +59,35 @@ export const ExpensesCtxProvider = (props) => {
   );
 
   const addExpenseHandler = (expense) => {
-    console.log(expense);
     dispatchExpenseAction({ type: "ADD_EXPENSE", item: expense });
+  };
+
+  const removeExpenseHandler = async (expense) => {
+    await axios.delete(
+      `https://expensetracker-authentication-default-rtdb.firebaseio.com/expenses/${expense.namr}.json`
+    );
+
+    dispatchExpenseAction({ type: "REMIVE_EXPENSE", item: expense });
+  };
+  const editExpenseHandler = async (expense) => {
+    const fetchExpensesDataResponse = await axios.put(
+      `https://expensetracker-authentication-default-rtdb.firebaseio.com/expenses/${expense.name}.json`,
+      {
+        title: expense.title,
+        amount: expense.amount,
+        description: expense.description,
+        date: expense.date,
+      }
+    );
+
+    dispatchExpenseAction({ type: "EDIT_EXPENSE", item: expense });
   };
 
   const expensesCtxExpensesCtxValue = {
     expenseItems: expensesState.expenseItems,
-    totalAmount: expensesState.totalAmount,
     addExpense: addExpenseHandler,
+    editExpense: editExpenseHandler,
+    removeExpense: removeExpenseHandler,
   };
   return (
     <ExpensesCtx.Provider value={expensesCtxExpensesCtxValue}>
