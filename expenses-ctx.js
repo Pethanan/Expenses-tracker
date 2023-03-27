@@ -67,7 +67,7 @@ export const ExpensesCtxProvider = (props) => {
       `https://expensetracker-authentication-default-rtdb.firebaseio.com/expenses/${expense.namr}.json`
     );
 
-    dispatchExpenseAction({ type: "REMIVE_EXPENSE", item: expense });
+    dispatchExpenseAction({ type: "REMOVE_EXPENSE", item: expense });
   };
   const editExpenseHandler = async (expense) => {
     const fetchExpensesDataResponse = await axios.put(
