@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import ExpensesCtx from "../Store/expenses-ctx";
 import ExpenseItem from "./ExpenseItem";
+import { useSelector } from "react-redux";
 
 const AddedExpenses = () => {
-  const expensesCtx = useContext(ExpensesCtx);
+  const items = useSelector((state) => state.expenses.items);
 
-  const expenseItemsList = expensesCtx.expenseItems.map((item) => (
+  const expenseItemsList = items.map((item) => (
     <ExpenseItem key={item.id} item={item}></ExpenseItem>
   ));
 

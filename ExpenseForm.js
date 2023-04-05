@@ -1,10 +1,12 @@
 import React, { useContext, useRef } from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
-import ExpensesCtx from "../Store/expenses-ctx";
+import { expensesActions } from "../Store/expenses";
+import { authActions } from "../Store/auth";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 const ExpenseForm = () => {
-  const expensesCtx = useContext(ExpensesCtx);
+  const dispatch = useDispatch();
 
   const itemTitleRef = useRef(null);
   const itemAmountRef = useRef(null);
@@ -33,8 +35,8 @@ const ExpenseForm = () => {
       expenseItem
     );
     const updatedItem = { ...expenseItem, name: addExpenseResponse.data.name };
-    expensesCtx.addExpense(updatedItem);
     console.log(updatedItem);
+    dispatch(expensesActions.addExpense(updatedItem));
   };
   return (
     <Form onSubmit={addExpenseHandler}>

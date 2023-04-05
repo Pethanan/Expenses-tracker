@@ -3,20 +3,26 @@ import React, { useContext, useRef, useState } from "react";
 import { Col, Row, Button, Form } from "react-bootstrap";
 import ExpensesCtx from "../Store/expenses-ctx";
 import ExpenseForm from "./ExpenseForm";
+import { useDispatch } from "react-redux";
+import { expensesActions } from "../Store/expenses";
 
 const ExpenseItem = (props) => {
+  const dispatch = useDispatch();
+
   const { item } = props;
 
   const [editForm, setEditForm] = useState(false);
-  const expensesCtx = useContext(ExpensesCtx);
 
   const titleRef = useRef(null);
   const amountRef = useRef(null);
   const descriptionRef = useRef(null);
   const dateRef = useRef(null);
 
-  const expensesRemoveHandler = () => {
-    expensesCtx.removeExpense(item);
+  const expensesRemoveHandler = async () => {
+    await axios.delete(
+      `https://expensetracker-authentication-default-rtdb.firebaseio.com/expenses/${item.name}.json`
+    );
+    dispatch(expensesActions.removeExpense(item));
   };
 
   const editExpenseSubmitHandler = async (e) => {
@@ -26,16 +32,19 @@ const ExpenseItem = (props) => {
     const enteredAmount = amountRef.current.value;
     const enteredDescription = descriptionRef.current.value;
     const enteredDate = dateRef.current.value;
-
-    const editedExpenseItem = {
-      name: item.name,
+    const editedData = {
       title: enteredTitle,
       amount: enteredAmount,
       description: enteredDescription,
       date: enteredDate,
     };
+    const fetchExpensesDataResponse = await axios.put(
+      `https://expensetracker-authentication-default-rtdb.firebaseio.com/expenses/${item.name}.json`,
+      { editedData }
+    );
 
-    expensesCtx.editExpense(editedExpenseItem);
+    dispatch(expensesActions.editExpense({ ...editedData, name: item.name }));
+
     setEditForm(false);
   };
 

@@ -12,8 +12,10 @@ import EmailVerification from "./components/pages/EmailVerification";
 import NavHeader from "./components/pages/Navheader";
 import ResetPassword from "./components/pages/ResetPassword";
 import ExpensesPage from "./components/pages/ExpensesPage";
+import { useSelector } from "react-redux";
 
 function App() {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const authCtx = useContext(AuthCtx);
   return (
     <>
@@ -34,8 +36,8 @@ function App() {
             <Profile></Profile>
           </Route>
           <Route path="/login-page" exact>
-            {!authCtx.isLoggedIn && <LoginAuthform></LoginAuthform>}
-            {authCtx.isLoggedIn && <Redirect to="/user/profilepage"></Redirect>}
+            {!isLoggedIn && <LoginAuthform></LoginAuthform>}
+            {isLoggedIn && <Redirect to="/user/profilepage"></Redirect>}
           </Route>
 
           <Route path="/user/expenses" exact>

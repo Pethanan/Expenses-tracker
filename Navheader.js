@@ -2,10 +2,16 @@ import React, { useContext } from "react";
 import { Button, Nav } from "react-bootstrap";
 import { Link, NavLink, Redirect } from "react-router-dom";
 import AuthCtx from "../Store/auth-ctx";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../Store/auth";
 
 const NavHeader = () => {
-  const authCtx = useContext(AuthCtx);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
 
+  const logoutHandler = () => {
+    dispatch(authActions.logout());
+  };
   return (
     <>
       <Nav
@@ -21,7 +27,7 @@ const NavHeader = () => {
       >
         <div>Something</div>
         <div style={{ display: "flex", justifyContent: "flex-start" }}>
-          {!authCtx.isLoggedIn && (
+          {!isLoggedIn && (
             <Button>
               <Link
                 to="/login-page"
@@ -35,12 +41,12 @@ const NavHeader = () => {
               </Link>
             </Button>
           )}
-          {authCtx.isLoggedIn && (
+          {isLoggedIn && (
             <Button
               style={{
                 fontWeight: "700",
               }}
-              onClick={authCtx.logout}
+              onClick={logoutHandler}
             >
               Logout
             </Button>

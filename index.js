@@ -1,18 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { AuthCtxProvider } from "./components/Store/auth-ctx";
-import { ExpensesCtxProvider } from "./components/Store/expenses-ctx";
+import { expensesActions } from "./expenses";
+import { authActions } from "./auth";
+import expensesReducer from "./expenses";
+import authReducer from "./auth";
+import { configureStore } from "@reduxjs/toolkit";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <ExpensesCtxProvider>
-      <AuthCtxProvider>
-        <App />
-      </AuthCtxProvider>
-    </ExpensesCtxProvider>
-  </React.StrictMode>
-);
+const store = configureStore({
+  reducer: { expenses: expensesReducer, auth: authReducer },
+});
+
+export default store;

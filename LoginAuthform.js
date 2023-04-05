@@ -2,12 +2,14 @@ import React, { useContext, useRef, useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import AuthCtx from "../Store/auth-ctx";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../Store/auth";
 
 const LoginAuthform = () => {
-  const authCtx = useContext(AuthCtx);
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const emailRef = useRef(null);
   const pwdRef = useRef(null);
-  const [isLoggedin, setIsLoggedin] = useState(false);
 
   const loginAuthSubmitHandler = async (e) => {
     e.preventDefault();
@@ -33,10 +35,9 @@ const LoginAuthform = () => {
     const isLoggedin = !!authData.idToken;
 
     if (isLoggedin) {
-      setIsLoggedin(true);
       console.log(authData.idToken);
       alert("Login uccesful!");
-      authCtx.login(authData.idToken);
+      dispatch(authActions.login(authData.idToken));
     }
   };
 
@@ -56,9 +57,7 @@ const LoginAuthform = () => {
         <button type="submit">Login</button>
       </Form>
       <Link to="/reset-password">Forgot Password?</Link>
-      <div>
-        {authCtx.isLoggedIn && <Redirect to="/user/profilepage"></Redirect>}
-      </div>
+      <div>{isLoggedIn && <Redirect to="/user/profilepage"></Redirect>}</div>
     </div>
   );
 };

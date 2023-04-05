@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AuthCtx from "../Store/auth-ctx";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const authCtx = useContext(AuthCtx);
   return (
     <Container
@@ -25,8 +27,8 @@ const Profile = () => {
         <Link to="/user/emailverification">Complete email Verification</Link>
       </Container>
       <Container>
-        {authCtx.isLoggedIn && <Link to="/user/expenses">Your Expenses</Link>}
-        {!authCtx.isLoggedIn && (
+        {isLoggedIn && <Link to="/user/expenses">Your Expenses</Link>}
+        {!isLoggedIn && (
           <Container>
             <span>Please login to continue </span>
             <Link to="/login-page">Click here to Login</Link>
