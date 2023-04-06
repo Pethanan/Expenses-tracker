@@ -4,9 +4,11 @@ import { expensesActions } from "../Store/expenses";
 import { authActions } from "../Store/auth";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import "./ExpenseForm.css";
 
 const ExpenseForm = () => {
   const dispatch = useDispatch();
+  const isPremiumActivated = useSelector((s) => s.theme.isPremiumActivated);
 
   const itemTitleRef = useRef(null);
   const itemAmountRef = useRef(null);
@@ -34,56 +36,63 @@ const ExpenseForm = () => {
       `${URL}/expenses.json`,
       expenseItem
     );
-    const updatedItem = { ...expenseItem, name: addExpenseResponse.data.name };
+    console.log(addExpenseResponse.data);
+    const updatedItem = {
+      ...expenseItem,
+      name: addExpenseResponse.data.name,
+      amount: +enteredItemAmount,
+    };
     console.log(updatedItem);
     dispatch(expensesActions.addExpense(updatedItem));
   };
   return (
-    <Form onSubmit={addExpenseHandler}>
-      <Row>
-        <Col>
-          <Form.Label>Item Name</Form.Label>
-        </Col>
-        <Col>
-          <Form.Control
-            placeholder="item name"
-            type="text"
-            ref={itemTitleRef}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Form.Label>Amount</Form.Label>
-        </Col>
-        <Col>
-          <Form.Control placeholder="0" type="number" ref={itemAmountRef} />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Form.Label>Description</Form.Label>
-        </Col>
-        <Col>
-          <Form.Control
-            placeholder="description"
-            type="text"
-            ref={itemDescriptionRef}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Form.Label>Date</Form.Label>
-        </Col>
-        <Col>
-          <Form.Control type="date" ref={itemDateRef} />
-        </Col>
-      </Row>
-      <Row>
-        <Button type="submit">Submit</Button>
-      </Row>
-    </Form>
+    <div className={`${isPremiumActivated ? "darktheme" : ""}`}>
+      <Form onSubmit={addExpenseHandler}>
+        <Row>
+          <Col>
+            <Form.Label>Item Name</Form.Label>
+          </Col>
+          <Col>
+            <Form.Control
+              placeholder="item name"
+              type="text"
+              ref={itemTitleRef}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Label>Amount</Form.Label>
+          </Col>
+          <Col>
+            <Form.Control placeholder="0" type="number" ref={itemAmountRef} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Label>Description</Form.Label>
+          </Col>
+          <Col>
+            <Form.Control
+              placeholder="description"
+              type="text"
+              ref={itemDescriptionRef}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Form.Label>Date</Form.Label>
+          </Col>
+          <Col>
+            <Form.Control type="date" ref={itemDateRef} />
+          </Col>
+        </Row>
+        <Row>
+          <Button type="submit">Submit</Button>
+        </Row>
+      </Form>
+    </div>
   );
 };
 

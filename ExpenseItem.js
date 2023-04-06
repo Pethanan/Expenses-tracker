@@ -34,7 +34,7 @@ const ExpenseItem = (props) => {
     const enteredDate = dateRef.current.value;
     const editedData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       description: enteredDescription,
       date: enteredDate,
     };
