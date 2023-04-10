@@ -9,7 +9,7 @@ const ResetPassword = () => {
     console.log("entered to right page");
     const enteredUserMail = mailRef.current.value;
     const resetPasswordResponse = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAQwHgTNV3DUHtjPgoYEx5Z_n0DfzO2NXo",
+      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyB0gvu4DcaKZpcr5ICbUE_wucAVfXNp96s",
       {
         method: "POST",
         body: JSON.stringify({

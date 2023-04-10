@@ -1,0 +1,18 @@
+.darkmode {
+  background-color: azure;
+  color: black;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  padding: 15px 50px;
+}
+
+.nodarkmode {
+  padding: 15px 50px;
+  background-color: black;
+  color: azure;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+}

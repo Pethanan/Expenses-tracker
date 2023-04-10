@@ -47,16 +47,20 @@ const AddedExpenses = () => {
   return (
     <div className={`${isPremiumActivated ? "darktheme" : ""}`}>
       <div>
-        <h3>Added Expenses</h3>
-        <Row>
-          <Col>Item</Col>
-          <Col>Description</Col>
-          <Col>Amount</Col>
-          <Col>Date</Col>
+        <h3 style={{ margin: "50px 0" }}>Added Expenses</h3>
+        <Row style={{ marginBottom: "50px" }}>
+          <Col style={{ fontWeight: "bolder" }}>Item</Col>
+          <Col style={{ fontWeight: "bolder" }}>Description</Col>
+          <Col style={{ fontWeight: "bolder" }}>Amount</Col>
+          <Col style={{ fontWeight: "bolder" }}>Date</Col>
+          <Col style={{ fontWeight: "bolder" }}>Edit</Col>
+          <Col style={{ fontWeight: "bolder" }}>Delete</Col>
         </Row>
         {expenseItemsList}
       </div>
-      <h4>Total Spent Amount: INR. {totalAmount}</h4>
+      <h4 style={{ margin: "50px 0" }}>
+        Total Spent Amount: INR. {totalAmount}
+      </h4>
       {totalAmount > 10000 && (
         <Button
           onClick={() => {

@@ -32,34 +32,45 @@ const SignupForm = () => {
       setIsEmailValid(true);
       setIsPwdValid(true);
       setIsConfirmPwdValid(true);
-      const authResponse = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAQwHgTNV3DUHtjPgoYEx5Z_n0DfzO2NXo",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPwd,
-            returnSecureToken: true,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
+
+      try {
+        const authResponse = await fetch(
+          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB0gvu4DcaKZpcr5ICbUE_wucAVfXNp96s",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email: enteredEmail,
+              password: enteredPwd,
+              returnSecureToken: true,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const signupAuthResponse = await authResponse.json();
+        const idToken = !!signupAuthResponse.idToken;
+        console.log(idToken);
+        if (idToken) {
+          setOpenSignUpModal(true);
+          setTimeout(() => {
+            setOpenSignUpModal(false);
+          }, 5000);
         }
-      );
-      const signupAuthResponse = await authResponse.json();
-      const idToken = !!signupAuthResponse.idToken;
-      console.log(idToken);
-      if (idToken) {
-        setOpenSignUpModal(true);
-        setTimeout(() => {
-          setOpenSignUpModal(false);
-        }, 5000);
-      } else {
-        console.log("Sign up Fail, try again.");
+      } catch (err) {
+        alert("Sign up was not success, pls try again");
       }
     } else {
-      alert("Enter all required info and valid details");
+      if (isEmailValid) {
+        alert("Enter valid email");
+      }
+      if (isPwdValid) {
+        alert("Enter valid password");
+      }
     }
+    emailRef.current.value = "";
+    pwdRef.current.value = "";
+    confirmPwdRef.current.value = "";
   };
 
   const signUpModalCloseHandler = () => {
@@ -135,7 +146,7 @@ const SignupForm = () => {
             </div>
           </Form>
           <Link
-            to="/login-page"
+            to="/login"
             style={{
               color: "black",
               width: "600px",

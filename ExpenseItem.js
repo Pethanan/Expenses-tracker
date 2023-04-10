@@ -63,27 +63,25 @@ const ExpenseItem = (props) => {
           >
             Edit
           </Button>
+        </Col>
+        <Col>
           <Button onClick={expensesRemoveHandler}>Delete</Button>
         </Col>
       </Row>
       {editForm && (
-        <Form onSubmit={editExpenseSubmitHandler}>
-          <Form.Label>Item Name</Form.Label>
-          <Form.Control type="text" ref={titleRef} placeholder={item.title} />
-          <Form.Label>Amount</Form.Label>
-          <Form.Control
-            type="number"
-            ref={amountRef}
-            placeholder={item.price}
-          />
-          <Form.Label>Description</Form.Label>
-          <Form.Control
+        <Form style={{ margin: "50px 0" }} onSubmit={editExpenseSubmitHandler}>
+          <label>Item Name</label>
+          <input type="text" ref={titleRef} placeholder={item.title} />
+          <label>Amount</label>
+          <input type="number" ref={amountRef} placeholder={item.amount} />
+          <label>Description</label>
+          <input
             type="text"
             ref={descriptionRef}
-            placeholder={item.amount}
+            placeholder={item.description}
           />
-          <Form.Label>Date</Form.Label>
-          <Form.Control type="date" ref={dateRef} placeholder={item.date} />
+          <label>Date</label>
+          <input type="date" ref={dateRef} placeholder={item.date} />
           <Button type="submit">Submit</Button>
         </Form>
       )}

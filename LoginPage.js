@@ -3,7 +3,7 @@ import coverImg from "../src/assets/3386851.jpg";
 import SignupForm from "./components/authorization/SignupForm";
 import LoginAuthform from "../authorization/LoginAuthform";
 
-function SignUpPage() {
+function login() {
   return (
     <>
       <div className="cover-img-container">
@@ -14,4 +14,4 @@ function SignUpPage() {
   );
 }
 
-export default SignUpPage;
+export default login;

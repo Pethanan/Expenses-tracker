@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { Button } from "react-bootstrap";
 import AuthCtx from "../Store/auth-ctx";
+import { useSelector } from "react-redux";
 
 const EmailVerification = () => {
-  const authCtx = useContext(AuthCtx);
+  const authToken = useSelector((state) => state.auth.authToken);
 
   const mailVerificationHandler = async () => {
     const fetcchMailVerification = await fetch(
@@ -12,7 +13,7 @@ const EmailVerification = () => {
         method: "POST",
         body: JSON.stringify({
           requestType: "VERIFY_EMAIL",
-          idToken: authCtx.authToken,
+          idToken: authToken,
         }),
       }
     );

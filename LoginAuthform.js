@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import AuthCtx from "../Store/auth-ctx";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,7 @@ const LoginAuthform = () => {
     const enteredPwd = pwdRef.current.value;
 
     const authResponse = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAQwHgTNV3DUHtjPgoYEx5Z_n0DfzO2NXo",
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB0gvu4DcaKZpcr5ICbUE_wucAVfXNp96s",
       {
         method: "POST",
         body: JSON.stringify({
@@ -36,28 +36,41 @@ const LoginAuthform = () => {
 
     if (isLoggedin) {
       console.log(authData.idToken);
-      alert("Login uccesful!");
+      alert("Login succesful!");
       dispatch(authActions.login(authData.idToken));
+    } else {
+      alert("Login was not succesful, pls try again with valid credentials");
     }
   };
 
   return (
     <div style={{ margin: "0 auto", marginTop: "60px", width: "600px" }}>
       <Form onSubmit={loginAuthSubmitHandler}>
+        <h3>Login Here</h3>
         <Form.Control
+          style={{ marginTop: "30px" }}
           placeholder="email"
           type="mail"
           ref={emailRef}
         ></Form.Control>
         <Form.Control
+          style={{ marginTop: "30px" }}
           placeholder="password"
           type="password"
           ref={pwdRef}
         ></Form.Control>
-        <button type="submit">Login</button>
+        <Button
+          type="submit"
+          style={{
+            marginTop: "30px",
+            marginBottom: "30px",
+          }}
+        >
+          Login
+        </Button>
       </Form>
       <Link to="/reset-password">Forgot Password?</Link>
-      <div>{isLoggedIn && <Redirect to="/user/profilepage"></Redirect>}</div>
+      <div>{isLoggedIn && <Redirect to="/profile"></Redirect>}</div>
     </div>
   );
 };

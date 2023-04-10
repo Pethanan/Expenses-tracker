@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 
 const Profile = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const authCtx = useContext(AuthCtx);
   return (
     <Container
       style={{
@@ -20,18 +19,18 @@ const Profile = () => {
     >
       <Container>
         <span>Your profile is incomplete, </span>
-        <Link to="/user/edit-profile">complete now</Link>
+        <Link to="/profile/edit">complete now</Link>
       </Container>
       <Container>
         <span>Your email is not verified, </span>
-        <Link to="/user/emailverification">Complete email Verification</Link>
+        <Link to="/profile/emailverification">Complete email Verification</Link>
       </Container>
       <Container>
-        {isLoggedIn && <Link to="/user/expenses">Your Expenses</Link>}
+        {isLoggedIn && <Link to="/profile/expenses">Your Expenses</Link>}
         {!isLoggedIn && (
           <Container>
             <span>Please login to continue </span>
-            <Link to="/login-page">Click here to Login</Link>
+            <Link to="/login">Click here to Login</Link>
           </Container>
         )}
       </Container>

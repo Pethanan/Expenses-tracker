@@ -26,27 +26,27 @@ function App() {
           <Route path="/" exact>
             <SignupForm></SignupForm>
           </Route>
-          <Route path="/signup-page" exact>
+          <Route path="/signup" exact>
             <SignupForm></SignupForm>
           </Route>
           <Route path="/reset-password" exact>
             <ResetPassword />
           </Route>
-          <Route path="/user/profilepage" exact>
+          <Route path="/profile" exact>
             <Profile></Profile>
           </Route>
-          <Route path="/login-page" exact>
+          <Route path="/login" exact>
             {!isLoggedIn && <LoginAuthform></LoginAuthform>}
-            {isLoggedIn && <Redirect to="/user/profilepage"></Redirect>}
+            {isLoggedIn && <Redirect to="/profile"></Redirect>}
           </Route>
 
-          <Route path="/user/expenses" exact>
+          <Route path="/profile/expenses" exact>
             <ExpensesPage />
           </Route>
-          <Route path="/user/edit-profile" exact>
+          <Route path="/profile/edit" exact>
             <EditProfile></EditProfile>
           </Route>
-          <Route to="/user/emailverification">
+          <Route to="/profile/emailverification">
             <EmailVerification />
           </Route>
         </Switch>

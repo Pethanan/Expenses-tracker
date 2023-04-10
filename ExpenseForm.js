@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from "react";
-import { Button, Form, Row, Col } from "react-bootstrap";
+import { Button, Form, Row, Col, Container } from "react-bootstrap";
 import { expensesActions } from "../Store/expenses";
 import { authActions } from "../Store/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,53 +46,64 @@ const ExpenseForm = () => {
     dispatch(expensesActions.addExpense(updatedItem));
   };
   return (
-    <div className={`${isPremiumActivated ? "darktheme" : ""}`}>
-      <Form onSubmit={addExpenseHandler}>
-        <Row>
-          <Col>
-            <Form.Label>Item Name</Form.Label>
-          </Col>
-          <Col>
-            <Form.Control
-              placeholder="item name"
-              type="text"
-              ref={itemTitleRef}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Label>Amount</Form.Label>
-          </Col>
-          <Col>
-            <Form.Control placeholder="0" type="number" ref={itemAmountRef} />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Label>Description</Form.Label>
-          </Col>
-          <Col>
-            <Form.Control
-              placeholder="description"
-              type="text"
-              ref={itemDescriptionRef}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Label>Date</Form.Label>
-          </Col>
-          <Col>
-            <Form.Control type="date" ref={itemDateRef} />
-          </Col>
-        </Row>
-        <Row>
-          <Button type="submit">Submit</Button>
-        </Row>
-      </Form>
-    </div>
+    <>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <h3>Add Your Expense Details</h3>
+      </div>
+
+      <div
+        className={`${isPremiumActivated ? "darktheme" : ""}`}
+        style={{ marginTop: "40px", display: "flex", justifyContent: "center" }}
+      >
+        <Form onSubmit={addExpenseHandler} style={{ width: "40%" }}>
+          <Row style={{ marginBottom: "20px" }}>
+            <Col>
+              <Form.Label>Item Name</Form.Label>
+            </Col>
+            <Col>
+              <Form.Control
+                placeholder="item name"
+                type="text"
+                ref={itemTitleRef}
+              />
+            </Col>
+          </Row>
+          <Row style={{ marginBottom: "20px" }}>
+            <Col>
+              <Form.Label>Amount</Form.Label>
+            </Col>
+            <Col>
+              <Form.Control placeholder="0" type="number" ref={itemAmountRef} />
+            </Col>
+          </Row>
+          <Row style={{ marginBottom: "20px" }}>
+            <Col>
+              <Form.Label>Description</Form.Label>
+            </Col>
+            <Col>
+              <Form.Control
+                placeholder="description"
+                type="text"
+                ref={itemDescriptionRef}
+              />
+            </Col>
+          </Row>
+          <Row style={{ marginBottom: "20px" }}>
+            <Col>
+              <Form.Label>Date</Form.Label>
+            </Col>
+            <Col>
+              <Form.Control type="date" ref={itemDateRef} />
+            </Col>
+          </Row>
+          <Row style={{ marginBottom: "20px" }}>
+            <Button type="submit" style={{ marginTop: "30px" }}>
+              Submit
+            </Button>
+          </Row>
+        </Form>
+      </div>
+    </>
   );
 };
 

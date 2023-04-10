@@ -1,18 +1,22 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import AuthCtx from "../Store/auth-ctx";
+import { useSelector } from "react-redux";
+import "./EditProfilePage.css";
 
 const EditProfile = () => {
   const [userDetailsComplete, setUserDetailsComplete] = useState(null);
+  const isPremiumActivated = useSelector(
+    (state) => state.theme.isPremiumActivated
+  );
+  const authToken = useSelector((state) => state.auth.authToken);
 
-  const authCtx = useContext(AuthCtx);
   useEffect(() => {
     const fetchingUserDetails = async () => {
       const fetchedDetails = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAQwHgTNV3DUHtjPgoYEx5Z_n0DfzO2NXo",
+        "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyB0gvu4DcaKZpcr5ICbUE_wucAVfXNp96s",
         {
           method: "POST",
-          body: JSON.stringify({ idToken: authCtx.authToken }),
+          body: JSON.stringify({ idToken: authToken }),
         }
       );
       const fetchedDetailsUsersData = await fetchedDetails.json();
@@ -31,13 +35,13 @@ const EditProfile = () => {
     const enteredFullName = fullNameRef.current.value;
     const enteredProfilePhotoURLRef = profilePhotoURLRef.current.value;
     const payloadObject = {
-      idToken: authCtx.authToken,
+      idToken: authToken,
       displayName: enteredFullName,
       photoUrl: enteredProfilePhotoURLRef,
       returnSecureToken: true,
     };
     const editedResponse = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAQwHgTNV3DUHtjPgoYEx5Z_n0DfzO2NXo",
+      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyB0gvu4DcaKZpcr5ICbUE_wucAVfXNp96s",
       {
         method: "POST",
         body: JSON.stringify(payloadObject),
@@ -54,9 +58,9 @@ const EditProfile = () => {
 
   return (
     <Form
+      className={`${isPremiumActivated ? "darkmode" : ""}`}
       onSubmit={editSubmitHandler}
       style={{
-        margin: "0 auto",
         display: "flex",
         justifyContent: "center",
         margin: "100px",
