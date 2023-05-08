@@ -10,7 +10,7 @@
   color: azure;
 }
 
-.submitbtn {
+.signup-submit-btn {
   background-color: rgb(213, 219, 236);
   border-radius: 6px;
   border: none;
@@ -23,9 +23,9 @@
   font-weight: 700;
 }
 
-.submitbtn:hover {
-  background-color: rgb(106, 124, 172);
-  background-color: rgb(29, 29, 29);
+.signup-submit-btn:hover {
+  color: rgb(106, 124, 172);
+  background-color: rgb(5, 5, 73);
   color: azure;
   transform: scale(1.05);
 }
@@ -46,7 +46,35 @@
   justify-content: center;
 }
 
-.cover {
-  background-image: url(../../assets/3386851.jpg) center center cover no-repeat
-    fixed;
+.login-link {
+  text-align: center;
+}
+
+.login-link-container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  padding: 25px 15px;
+  margin: 80px 0;
+  background-color: rgb(144, 144, 228);
+  transform: translateX(50%);
+  border-radius: 10px;
+  color: white;
+}
+
+.login-redirect {
+  padding: 10px 0;
+  margin: 10px 0;
+}
+
+.login-redirect:hover {
+  background-color: rgb(84, 84, 116);
+  color: white;
+  border-radius: 8px;
+}
+.login-link a {
+  color: black;
+}
+.login-link a:hover {
+  color: rgb(7, 5, 151);
 }

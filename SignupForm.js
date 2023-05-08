@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react";
 import { Form, Row, Col, Button, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import SignUpModal from "../UI/SignUpModal";
+import { Link, Redirect } from "react-router-dom";
+import Modal from "../UI/Modal";
 import classes from "./SignupForm.js.module.css";
 
 const SignupForm = () => {
+  const [signupSuccess, setSignupSuccess] = useState(false);
   const [openSignUpModal, setOpenSignUpModal] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPwdValid, setIsPwdValid] = useState(false);
@@ -35,7 +36,7 @@ const SignupForm = () => {
 
       try {
         const authResponse = await fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB0gvu4DcaKZpcr5ICbUE_wucAVfXNp96s",
+          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAQwHgTNV3DUHtjPgoYEx5Z_n0DfzO2NXo",
           {
             method: "POST",
             body: JSON.stringify({
@@ -55,6 +56,7 @@ const SignupForm = () => {
           setOpenSignUpModal(true);
           setTimeout(() => {
             setOpenSignUpModal(false);
+            setSignupSuccess(true);
           }, 5000);
         }
       } catch (err) {
@@ -80,92 +82,105 @@ const SignupForm = () => {
 
   return (
     <>
-      <div className={classes.cover}>
-        <div
-          className={classes["signup-form-container"]}
-          style={{ color: "black" }}
-        >
-          <h5
-            style={{
-              marginTop: "0 auto",
-              textAlign: "center",
-              marginBottom: "65px",
-              fontWeight: "bolder",
-            }}
-          >
-            Create New Account/ Signup
-          </h5>
-          <Form onSubmit={authFormSubmitHandler}>
-            <Row className={classes["form-elements"]}>
-              <Col>
-                <Form.Label style={{ color: "black" }}>Email id</Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="mail"
-                  placeholder="email"
-                  ref={emailRef}
-                  required
-                />
-              </Col>
-            </Row>
-            <Row className={classes["form-elements"]}>
-              <Col>
-                <Form.Label style={{ color: "black" }}>
-                  Create Password
-                </Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="password"
-                  placeholder="password"
-                  ref={pwdRef}
-                  required
-                />
-              </Col>
-            </Row>
-            <Row className={classes["form-elements"]}>
-              <Col>
-                <Form.Label style={{ color: "black" }}>
-                  Confirm Password
-                </Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="password"
-                  placeholder="re-enter password"
-                  required
-                  ref={confirmPwdRef}
-                />
-              </Col>
-            </Row>
-            <div className={classes.btnrow}>
-              <button type="submit" className={classes.submitbtn}>
-                Submit
-              </button>
+      {!signupSuccess && (
+        <Container>
+          <div className={classes.cover}>
+            <div
+              className={classes["signup-form-container"]}
+              style={{ color: "black" }}
+            >
+              <h5
+                style={{
+                  marginTop: "0 auto",
+                  textAlign: "center",
+                  marginBottom: "65px",
+                  fontWeight: "bolder",
+                }}
+              >
+                Create New Account/ Signup
+              </h5>
+              <Form onSubmit={authFormSubmitHandler}>
+                <Row className={classes["form-elements"]}>
+                  <Col>
+                    <Form.Label style={{ color: "black" }}>Email id</Form.Label>
+                  </Col>
+                  <Col>
+                    <Form.Control
+                      type="mail"
+                      placeholder="email"
+                      ref={emailRef}
+                      required
+                    />
+                  </Col>
+                </Row>
+                <Row className={classes["form-elements"]}>
+                  <Col>
+                    <Form.Label style={{ color: "black" }}>
+                      Create Password
+                    </Form.Label>
+                  </Col>
+                  <Col>
+                    <Form.Control
+                      type="password"
+                      placeholder="password"
+                      ref={pwdRef}
+                      required
+                    />
+                  </Col>
+                </Row>
+                <Row className={classes["form-elements"]}>
+                  <Col>
+                    <Form.Label style={{ color: "black" }}>
+                      Confirm Password
+                    </Form.Label>
+                  </Col>
+                  <Col>
+                    <Form.Control
+                      type="password"
+                      placeholder="re-enter password"
+                      required
+                      ref={confirmPwdRef}
+                    />
+                  </Col>
+                </Row>
+                <div className={classes.btnrow}>
+                  <button
+                    type="submit"
+                    className={classes["signup-submit-btn"]}
+                  >
+                    Submit
+                  </button>
+                </div>
+              </Form>
+              <Link
+                to="/login"
+                style={{
+                  color: "black",
+                  width: "600px",
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "10px 15px",
+                }}
+                className={classes["login-redirect"]}
+              >
+                Login here, if you already have an account
+              </Link>
             </div>
-          </Form>
-          <Link
-            to="/login"
-            style={{
-              color: "black",
-              width: "600px",
-              display: "flex",
-              justifyContent: "center",
-              padding: "10px 15px",
-            }}
-          >
-            Login here, if you already have an account
-          </Link>
+          </div>
+          <div>
+            {openSignUpModal && (
+              <Modal signUpModalCloseHandler={signUpModalCloseHandler}></Modal>
+            )}
+          </div>
+        </Container>
+      )}
+      {signupSuccess && (
+        <div className={classes["login-link-container"]}>
+          <b className={classes["login-link"]}>
+            Signup was success ! Click here to <Link to="/login">Login</Link>
+          </b>
         </div>
-      </div>
-      <div>
-        {openSignUpModal && (
-          <SignUpModal
-            signUpModalCloseHandler={signUpModalCloseHandler}
-          ></SignUpModal>
-        )}
-      </div>
+      )}
     </>
   );
 };

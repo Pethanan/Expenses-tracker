@@ -1,10 +1,10 @@
-import "./App.css";
-import coverImg from "../../assets/3386851.jpg";
-import SignupForm from "./components/authorization/SignupForm";
+import NavHeader from "../UI/NavHeader";
+import SignupForm from "../authorization/SignupForm";
 
 function SignUpPage() {
   return (
     <>
+      <NavHeader></NavHeader>
       <SignupForm className="signup-form"></SignupForm>
     </>
   );

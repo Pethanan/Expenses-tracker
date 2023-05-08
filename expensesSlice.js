@@ -1,5 +1,5 @@
-// import axios from "axios";
-// import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
+import { createSlice } from "@reduxjs/toolkit";
 
 // const ExpensesCtx = React.createContext({
 //   expenseItems: [],
@@ -97,3 +97,45 @@
 // };
 
 // export default ExpensesCtx;
+
+const initialExpensesState = { items: [], totalAmount: 0 };
+
+const expensesSlice = createSlice({
+  name: "expenses",
+  initialState: initialExpensesState,
+  reducers: {
+    retrieveExpenses(state, action) {
+      state.items = [...action.payload];
+      let totalAmount = 0;
+      action.payload.forEach((element) => {
+        totalAmount = totalAmount + element.amount;
+      });
+      state.totalAmount = totalAmount;
+    },
+
+    addExpense(state, action) {
+      state.items = [...state.items, action.payload];
+      state.totalAmount = state.totalAmount + action.payload.amount;
+    },
+
+    removeExpense(state, action) {
+      state.items = state.items.filter(
+        (expItem) => expItem.name !== action.payload.name
+      );
+      state.totalAmount = state.totalAmount - action.payload.amount;
+    },
+    editExpense(state, action) {
+      const toBeUpdatedItemIndex = state.items.findIndex(
+        (expItem) => action.payload.name === expItem.name
+      );
+      state.totalAmount =
+        state.totalAmount -
+        state.items[toBeUpdatedItemIndex].amount +
+        action.payload.amount;
+      state.items[toBeUpdatedItemIndex] = action.payload;
+    },
+  },
+});
+
+export default expensesSlice.reducer;
+export const expensesActions = expensesSlice.actions;

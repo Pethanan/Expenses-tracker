@@ -1,0 +1,39 @@
+.sidebar-toggler {
+  position: absolute;
+  right: 0%;
+  width: 50px;
+  z-index: 1;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  position: absolute;
+  right: 0%;
+  padding-top: 40px;
+  height: 100%;
+  background-color: rgb(4, 4, 128);
+  color: white;
+  transform: translateX(100%);
+  transition: all 0.4s;
+}
+
+.sidebar--open {
+  transform: translateX(0%);
+  width: 15%;
+}
+.sidebar-item {
+  list-style: none;
+  padding: 20px 10px;
+  text-decoration: none;
+  border-bottom: solid rgb(255, 255, 255) 1px;
+}
+
+.sidebar-item a {
+  list-style: none;
+  text-decoration: none;
+  color: black;
+  font-size: large;
+  color: white;
+}

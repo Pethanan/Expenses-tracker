@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 
-const ResetPassword = () => {
+const ResetPasswordPage = () => {
   const mailRef = useRef(null);
 
   const forgotPasswordHandler = async (e) => {
@@ -9,7 +9,7 @@ const ResetPassword = () => {
     console.log("entered to right page");
     const enteredUserMail = mailRef.current.value;
     const resetPasswordResponse = await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyB0gvu4DcaKZpcr5ICbUE_wucAVfXNp96s",
+      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAQwHgTNV3DUHtjPgoYEx5Z_n0DfzO2NXo",
       {
         method: "POST",
         body: JSON.stringify({
@@ -40,4 +40,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default ResetPasswordPage;
